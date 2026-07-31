@@ -1,6 +1,6 @@
 # ExRatatui screens on the badge
 
-This folder is where the badge's [ex_ratatui](https://github.com/mauricio-cassola/ex_ratatui) demos live. Three of them rotate through the regular screen carousel alongside the Snake/Weather/Calendar screens, and a fourth one (the live BEAM dashboard) hangs off SSH as a subsystem so you can pull it up from your laptop and monitor the badge.
+This folder is where the badge's [ex_ratatui](https://github.com/mauricio-cassola/ex_ratatui) demos live. Four of them rotate through the regular screen carousel alongside the Snake/Weather/Calendar screens, and a fifth one (the live BEAM dashboard) hangs off SSH as a subsystem so it can be pulled up from a laptop to monitor the badge.
 
 ## What's in here
 
@@ -8,10 +8,11 @@ This folder is where the badge's [ex_ratatui](https://github.com/mauricio-cassol
 | --- | --- | --- |
 | `Counter` | reducer demo | Two-button counter, simplest possible end-to-end demo. Hits the chrome helper, the input mapping, and not much else. |
 | `Goathi` | canvas + subscription demo | Animated 1-bit pixel-art goat with a tail-wagging animation, plus a "HI!" pixel-art word that blinks on/off in counter-rhythm with the wag. Both the goat and the greeting come from ASCII heredocs walked through `ascii_to_points/3` into a single `Canvas`. |
+| `CodeBeam` | big-text + subscription demo | Two `BigText` messages on a four-tick cycle — a five-line `:half_height` banner (HI / CODE / BEAM / EUROPE / 2026!) and a three-line `:full` card (I'M / A TUI / :)) — each shown in both polarities, inverting the whole 1-bit panel edge to edge. Meant to be left running on the badge during the talk. `:half_height` and `:full` are the only badge-safe sizes given the 6×8 font's block glyphs; showing each message in both polarities is what keeps every pixel driven, so partial refresh stays ghost-free. |
 | `Stats` | data + widgets demo | Five-pane dashboard of live BEAM stats — header strip, memory-by-category bar chart, processes/atoms gauges, three rolling sparklines (memory, work-rate, run-queue), and a top-12 process panel. Refreshes every 3 s. |
 | `NameBadge.ExRatatui.SystemMonitorTui` | SSH subsystem | Three-tab full-color terminal dashboard registered as a `nerves_ssh` subsystem. Not in the on-device carousel — you reach it with `ssh -t -s`. Same library, much wider rendering surface. |
 
-The first three are wrapped by thin menu-facing modules under `lib/name_badge/screen/` (`Counter`, `Goathi`, `Stats`) that hand the actual app off to the `NameBadge.Screen.ExRatatui` adapter. The adapter is what bridges the cell grid that ex_ratatui produces to the e-ink panel's pixels — it traps exits, drains the initial frame, and feeds cells through `NameBadge.ExRatatui.Raster` to produce a 1-bit bitmap with the bitmap font in `NameBadge.ExRatatui.Font`.
+The first four are wrapped by thin menu-facing modules under `lib/name_badge/screen/` (`Counter`, `Goathi`, `CodeBeam`, `Stats`) that hand the actual app off to the `NameBadge.Screen.ExRatatui` adapter. The adapter is what bridges the cell grid that ex_ratatui produces to the e-ink panel's pixels — it traps exits, drains the initial frame, and feeds cells through `NameBadge.ExRatatui.Raster` to produce a 1-bit bitmap with the bitmap font in `NameBadge.ExRatatui.Font`.
 
 ## Adding a new screen
 
