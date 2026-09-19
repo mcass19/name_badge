@@ -48,6 +48,7 @@ defmodule NameBadge.MixProject do
       {:req, "~> 0.5"},
       {:dither, "~> 0.1.1"},
       {:typst, "~> 0.3"},
+      {:raster_ex_ratatui, "~> 0.2"},
       {:qr_code, "~> 3.2.0"},
       {:tzdata, "~> 1.1"},
       {:icalendar, "~> 1.1"},
