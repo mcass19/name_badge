@@ -15,11 +15,14 @@ config :name_badge, :timezone, "Europe/Stockholm"
 
 # Customize non-Elixir parts of the firmware. See
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.
-
+#
+# The rootfs is gzip-compressed (Nerves' default) rather than stored with
+# `-no-compression`: uncompressed, typst's NIF plus ex_ratatui's overflow the
+# 140 MiB partition asserted by nerves_system_trellis' fwup.conf.
 config :nerves, :firmware,
   rootfs_overlay: "rootfs_overlay",
   provisioning: "config/provisioning.conf",
-  mksquashfs_flags: ["-no-compression", "-no-xattrs", "-quiet"]
+  mksquashfs_flags: ["-no-xattrs", "-quiet"]
 
 # Set the SOURCE_DATE_EPOCH date for reproducible builds.
 # See https://reproducible-builds.org/docs/source-date-epoch/ for more information
